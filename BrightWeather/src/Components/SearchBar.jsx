@@ -23,6 +23,8 @@ export default function SearchBar({ onSearch }) {
         <option value="GB">UK</option>
         <option value="FR">France</option>
         <option value="DE">Germany</option>
+        <option value="US">USA</option>
+        <option value="IN">India</option>
       </select>
 
       <button type="submit">Search</button>
