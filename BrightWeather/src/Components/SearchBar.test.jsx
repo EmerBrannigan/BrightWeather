@@ -1,4 +1,5 @@
 import { render, screen, fireEvent } from "@testing-library/react";
+import "@testing-library/jest-dom";
 import { describe, it, expect, vi } from "vitest";
 import SearchBar from "./SearchBar";
 
@@ -45,4 +46,24 @@ describe("SearchBar Component", () => {
     // Assert
     expect(mockSearch).toHaveBeenCalledWith("Paris", "FR");
   });
+
+  it("submits when Enter key is pressed", () => {
+    const mockSearch = vi.fn();
+    const { container } = render(<SearchBar onSearch={mockSearch} />);
+
+    const input = screen.getByPlaceholderText(/enter city/i);
+    fireEvent.change(input, { target: { value: "Berlin" } });
+
+    const form = container.querySelector("form");
+    fireEvent.submit(form);
+
+    expect(mockSearch).toHaveBeenCalledWith("Berlin", "GB");
+ });
+
+
+ it("renders search button with type submit", () => {
+    render(<SearchBar onSearch={() => {}} />);
+    const btn = screen.getByRole("button", { name: /search/i });
+    expect(btn).toHaveAttribute("type", "submit");
+ });
 });
